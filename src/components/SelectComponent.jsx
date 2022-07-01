@@ -4,15 +4,15 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-export default function SelectSmall({id, label, labelId, arrValue, handleChange, value}) {
+export default function SelectSmall({name, label, labelId, arrValue, handleChange, value}) {
 
 
     return (
         <FormControl sx={{m: 1, minWidth: 160}} size="small">
-            <InputLabel id={id}>{label}</InputLabel>
+            <InputLabel id={name}>{label}</InputLabel>
             <Select
                 labelId={labelId}
-                name={id}
+                name={name}
                 value={value}
                 label={label}
                 onChange={e => handleChange(e)}

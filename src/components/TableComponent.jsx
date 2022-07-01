@@ -13,6 +13,7 @@ import BottomSideCell from "./BottomSideCell";
 import TableClass from "../models/tableClass";
 import {useEffect} from "react";
 import Dispatcher from "../models/dispatcher";
+import {Typography} from "@mui/material";
 
 export default function TableComponent() {
     const table = useSelector(state => state.table)
@@ -37,7 +38,9 @@ export default function TableComponent() {
     }, [dispatch, page, rowsPerPage])
 
     useEffect(() => {
-        dispatch(TableClass.averageColumn(table.cells, table.columns))
+        setTimeout(() => {
+            dispatch(TableClass.averageColumn(table.cells, table.columns))
+        }, 200)
     }, [table.cells, table.columns, dispatch])
 
     const amountPlus = (id) => {
@@ -93,7 +96,7 @@ export default function TableComponent() {
                             <TableHead>
                                 <TableRow>
                                     <TableCell>
-                                        Average value for each cell
+                                        <Typography>Average value for each column</Typography>
                                     </TableCell>
                                 </TableRow>
                             </TableHead>

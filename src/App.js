@@ -26,7 +26,7 @@ function App() {
 
             </div>
             <div className="wrapper">
-                <button onClick={addRow}>Add row</button>
+                <button type="button" style={{cursor: 'pointer'}} onClick={addRow}>Add row</button>
                 <RightSideComponent/>
                 <TableComponent/>
             </div>

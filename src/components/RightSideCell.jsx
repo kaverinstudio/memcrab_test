@@ -5,7 +5,7 @@ const RightSideCell = ({value, index, selected, deSelected, rowDelete}) => {
     return (
         <div
             className="cell"
-            title="Click to delete a line"
+            title="Click to delete a row"
             onMouseLeave={deSelected}
             onMouseEnter={() => selected(index)}
             onClick={() => rowDelete(index)}

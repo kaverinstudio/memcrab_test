@@ -10,7 +10,7 @@ const HeaderComponent = () => {
 
     const generator = () => {
         const init = []
-        for (let i = 1; i < 100; i++) {
+        for (let i = 1; i < 101; i++) {
             init.push(i)
         }
         setArrValue(init)
@@ -37,7 +37,7 @@ const HeaderComponent = () => {
         <div>
             <SelectSmall
                 labelId="columns"
-                id="columns"
+                name="columns"
                 value={table.columns}
                 label="Columns"
                 arrValue={arrValue}
@@ -45,7 +45,7 @@ const HeaderComponent = () => {
             />
             <SelectSmall
                 labelId="rows"
-                id="rows"
+                name="rows"
                 value={table.cells.length}
                 label="Rows"
                 arrValue={arrValue}
@@ -53,7 +53,7 @@ const HeaderComponent = () => {
             />
             <SelectSmall
                 labelId="nearAmount"
-                id="nearAmount"
+                name="nearAmount"
                 value={table.nearAmount}
                 label="Closest values"
                 arrValue={arrValue.slice(0, 10)}

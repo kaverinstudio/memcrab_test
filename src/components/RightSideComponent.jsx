@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import RightSideCell from "./RightSideCell";
 import {useDispatch, useSelector} from "react-redux";
 import TableClass from "../models/tableClass";
-import {Table, TableBody, TableCell, TableContainer, TableRow} from "@mui/material";
+import {Table, TableBody, TableCell, TableContainer, TableRow, Typography} from "@mui/material";
 
 const RightSideComponent = () => {
     const dispatch = useDispatch()
@@ -52,7 +52,7 @@ const RightSideComponent = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <p style={{textAlign: 'center', paddingTop: 10}}>Sum <br/> each <br/> line</p>
+            <Typography style={{textAlign: 'center', paddingTop: 10}}>Sum <br/> each <br/> row</Typography>
         </div>
     );
 };
