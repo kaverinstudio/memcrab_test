@@ -55,7 +55,10 @@ export default function TableComponent() {
         dispatch(TableClass.showNearAmount(table.cells))
     }
 
-    let i = numberRows;
+    let i = 0;
+    if (numberRows){
+        i = numberRows;
+    }
     return (
         <div className="table">
             <div className="table__wrapper">
@@ -117,7 +120,7 @@ export default function TableComponent() {
                         </Table>
                     </TableContainer>
                     <TablePagination
-                        rowsPerPageOptions={[5, 10, 15]}
+                        rowsPerPageOptions={[5, 10, 15, table.cells.length]}
                         component="div"
                         count={table.cells.length}
                         rowsPerPage={rowsPerPage}
