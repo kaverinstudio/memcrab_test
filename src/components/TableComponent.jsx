@@ -26,10 +26,10 @@ export default function TableComponent() {
     };
 
 
-    const callPages = Math.ceil(table.rows / rowsPerPage - 1)
+    const callPages = Math.ceil(table.rows / rowsPerPage)
 
     if (callPages < page) {
-        setPage(callPages)
+        setPage(callPages - 1)
     }
 
 
