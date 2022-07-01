@@ -19,18 +19,23 @@ export default function TableComponent() {
     const table = useSelector(state => state.table)
     const dispatch = useDispatch()
     const [page, setPage] = React.useState(0);
-    const [numberRows, setNumberRows] = React.useState(0)
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
-        setNumberRows((rowsPerPage * newPage))
     };
+
+
+    const callPages = Math.ceil(table.rows / rowsPerPage - 1)
+
+    if (callPages < page) {
+        setPage(callPages)
+    }
+
 
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
-
     };
 
     useEffect(() => {
@@ -38,10 +43,8 @@ export default function TableComponent() {
     }, [dispatch, page, rowsPerPage])
 
     useEffect(() => {
-        setTimeout(() => {
-            dispatch(TableClass.averageColumn(table.cells, table.columns))
-        }, 200)
-    }, [table.cells, table.columns, dispatch])
+        dispatch(TableClass.averageColumn())
+    }, [table.cells, dispatch])
 
     const amountPlus = (id) => {
         dispatch(TableClass.amountAdd(id, table.cells))
@@ -55,10 +58,10 @@ export default function TableComponent() {
         dispatch(TableClass.showNearAmount(table.cells))
     }
 
-    let i = 0;
-    if (numberRows){
-        i = numberRows;
-    }
+    let indexForRender = 0;
+
+    indexForRender = page * rowsPerPage;
+
     return (
         <div className="table">
             <div className="table__wrapper">
@@ -71,7 +74,7 @@ export default function TableComponent() {
                                     .map((row, index) => {
                                         return (
                                             <TableRow key={index}>
-                                                {table.cells[i].map((col) => {
+                                                {table.cells[indexForRender].map((col) => {
                                                         return (
                                                             <TableCell key={col.id} style={{padding: 0}}>
                                                                 <CellComponent
@@ -87,7 +90,7 @@ export default function TableComponent() {
                                                             </TableCell>
                                                         );
                                                     },
-                                                    i++,
+                                                    indexForRender++,
                                                 )}
                                             </TableRow>
                                         );
@@ -120,7 +123,7 @@ export default function TableComponent() {
                         </Table>
                     </TableContainer>
                     <TablePagination
-                        rowsPerPageOptions={[5, 10, 15, table.cells.length]}
+                        rowsPerPageOptions={[5, 10, 15]}
                         component="div"
                         count={table.cells.length}
                         rowsPerPage={rowsPerPage}

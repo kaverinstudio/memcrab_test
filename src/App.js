@@ -23,7 +23,6 @@ function App() {
         <div className="app">
             <div className="header">
                 <HeaderComponent/>
-
             </div>
             <div className="wrapper">
                 <button type="button" style={{cursor: 'pointer'}} onClick={addRow}>Add row</button>

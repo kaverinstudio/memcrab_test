@@ -33,7 +33,7 @@ const TableClass = {
             for (let i = 0; i < table.length; i++) {
                 let sumItem = 0;
                 let itemId = []
-                table[i].map(cell => {
+                table[i].forEach(cell => {
                         sumItem += cell.amount
                         itemId.push(cell.id)
                     }
@@ -42,7 +42,7 @@ const TableClass = {
             }
             dispatch(setRowSum(sumRows))
             for (let j = 0; j < sumRows.length; j++) {
-                table[j].map(cell => percent.push({
+                table[j].forEach(cell => percent.push({
                     id: cell.id,
                     percent: (cell.amount / sumRows[j].sumItem * 100).toFixed(1)
                 }))
@@ -52,20 +52,23 @@ const TableClass = {
         }
     },
 
-    averageColumn(table, columns) {
+    averageColumn() {
         let sumCol = 0
         const averageCol = []
         let index = 0
-        return (dispatch) => {
+        return (dispatch, getState) => {
+            const state = getState()
+            const columns = state.table.columns
+            const table = state.table
+
             for (let i = 0; i < columns; i++) {
-                for (let j = 0; j < table.length; j++) {
-                    sumCol += table[j][index].amount
+                for (let j = 0; j < table.cells.length; j++) {
+                    sumCol += table.cells[j][index].amount
                 }
-                averageCol.push(sumCol / table.length)
+                averageCol.push(sumCol / table.rows)
                 sumCol = 0;
                 index++;
             }
-
             dispatch(setAverageColumn(averageCol))
         }
     },
