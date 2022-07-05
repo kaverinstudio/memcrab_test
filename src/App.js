@@ -15,9 +15,8 @@ function App() {
     }, [table.rows, table.columns, dispatch])
 
     const addRow = () => {
-        dispatch(TableClass.addRow(table.cells))
+        dispatch(TableClass.addRow())
     }
-
 
     return (
         <div className="app">

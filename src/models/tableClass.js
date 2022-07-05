@@ -2,7 +2,7 @@ import {
     setArrNearAmount,
     setAverageColumn,
     setCells,
-    setPercents,
+    setPercents, setRows,
     setRowSum,
     setShowPercent
 } from "../reducers/tableReducer";
@@ -65,7 +65,7 @@ const TableClass = {
                 for (let j = 0; j < table.cells.length; j++) {
                     sumCol += table.cells[j][index].amount
                 }
-                averageCol.push(sumCol / table.rows)
+                averageCol.push(sumCol / table.cells.length)
                 sumCol = 0;
                 index++;
             }
@@ -116,33 +116,37 @@ const TableClass = {
         }
     },
 
-    rowDelete(arrDel, table) {
-        return (dispatch) => {
+    rowDelete(arrDel) {
+        return (dispatch, getState) => {
+            const state = getState()
+            const table = state.table
             let index = 0;
-            for (let k = 0; k < table.length; k++) {
-                for (let j = 0; j < table[k].length; j++) {
-                    if (arrDel.some((el) => el === table[k][j].id)) {
+            for (let k = 0; k < table.cells.length; k++) {
+                for (let j = 0; j < table.cells[k].length; j++) {
+                    if (arrDel.some((el) => el === table.cells[k][j].id)) {
                         index = k;
                     }
                 }
             }
-            table.splice(index, 1)
-            dispatch(setCells(table))
+            table.cells.splice(index, 1)
+            dispatch(setCells(table.cells))
         }
     },
 
-    addRow(table) {
-        return (dispatch) => {
+    addRow() {
+        return (dispatch, getState) => {
             const newRow = []
+            const state = getState()
+            const table = state.table
 
-            let startId = table[table.length - 1].slice(-1)[0].id;
+            let startId = table.cells[table.cells.length - 1].slice(-1)[0].id;
 
-            for (let i = 0; i < table[table.length - 1].length; i++) {
+            for (let i = 0; i < table.cells[table.cells.length - 1].length; i++) {
                 startId++;
                 newRow.push({id: startId.toString(), amount: Math.floor(Math.random() * 900) + 100})
             }
-            table.push(newRow)
-            dispatch(setCells(table))
+            table.cells.push(newRow)
+            dispatch(setCells(table.cells))
 
         }
     }

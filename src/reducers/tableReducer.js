@@ -17,7 +17,7 @@ const defaultState = {
     averageColumn: [],
     percents: [],
     showPercent: [],
-    nearAmount: 6,
+    nearAmount: 10,
     arrNearAmount: [],
     showRightCell: [],
 }

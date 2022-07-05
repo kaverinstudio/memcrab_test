@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import RightSideCell from "./RightSideCell";
 import {useDispatch, useSelector} from "react-redux";
 import TableClass from "../models/tableClass";
-import {Table, TableBody, TableCell, TableContainer, TableRow, Typography} from "@mui/material";
 
 const RightSideComponent = () => {
     const dispatch = useDispatch()
@@ -30,29 +29,27 @@ const RightSideComponent = () => {
 
     return (
         <div className="right__side">
-            <TableContainer>
-                <Table style={{borderSpacing: 0}}>
-                    <TableBody>
-                        {table.rowSum
-                            .slice(table.showRightCell.page * table.showRightCell.rowsPerPage, table.showRightCell.page * table.showRightCell.rowsPerPage + table.showRightCell.rowsPerPage)
-                            .map((value, index) =>
-                                <TableRow key={index}>
-                                    <TableCell key={index} style={{padding: 0}}>
-                                        <RightSideCell
-                                            selected={selected}
-                                            deSelected={deSelected}
-                                            key={index}
-                                            index={value.id}
-                                            value={value.sumItem}
-                                            rowDelete={rowDelete}
-                                        />
-                                    </TableCell>
-                                </TableRow>
-                            )}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <Typography style={{textAlign: 'center', paddingTop: 10}}>Sum <br/> each <br/> row</Typography>
+            <div>
+                <table>
+                    {table.rowSum
+                        .slice(table.showRightCell.page * table.showRightCell.rowsPerPage, table.showRightCell.page * table.showRightCell.rowsPerPage + table.showRightCell.rowsPerPage)
+                        .map((value, index) =>
+                            <tr key={index}>
+                                <td key={index} style={{padding: 0}}>
+                                    <RightSideCell
+                                        selected={selected}
+                                        deSelected={deSelected}
+                                        key={index}
+                                        index={value.id}
+                                        value={value.sumItem}
+                                        rowDelete={rowDelete}
+                                    />
+                                </td>
+                            </tr>
+                        )}
+                </table>
+            </div>
+            <p style={{textAlign: 'center', paddingTop: 10}}>Sum <br/> each <br/> row</p>
         </div>
     );
 };

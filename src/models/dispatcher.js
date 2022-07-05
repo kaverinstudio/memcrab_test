@@ -3,17 +3,17 @@ import {setColumns, setNearAmount, setRows, setShowRightCell} from "../reducers/
 const Dispatcher = {
     columns(columns) {
         return (dispatch) => {
-            dispatch(setColumns(columns))
+            dispatch(setColumns(parseInt(columns)))
         }
     },
     rows(rows) {
         return (dispatch) => {
-            dispatch(setRows(rows))
+            dispatch(setRows(parseInt(rows)))
         }
     },
     nearAmount(nearAmount) {
         return (dispatch) => {
-            dispatch(setNearAmount(nearAmount))
+            dispatch(setNearAmount(parseInt(nearAmount)))
         }
     },
     showRightCell(cel) {

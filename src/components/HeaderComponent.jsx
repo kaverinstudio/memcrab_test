@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import SelectSmall from "./SelectComponent";
 import {useDispatch, useSelector} from "react-redux";
 import Dispatcher from "../models/dispatcher";
+import SelectOptions from "./SelectOptions";
 
 const HeaderComponent = () => {
     const [arrValue, setArrValue] = useState([])
@@ -34,8 +34,8 @@ const HeaderComponent = () => {
     };
 
     return (
-        <div>
-            <SelectSmall
+        <div className="container">
+            <SelectOptions
                 labelId="columns"
                 name="columns"
                 value={table.columns}
@@ -43,7 +43,7 @@ const HeaderComponent = () => {
                 arrValue={arrValue}
                 handleChange={handleChange}
             />
-            <SelectSmall
+            <SelectOptions
                 labelId="rows"
                 name="rows"
                 value={table.cells.length}
@@ -51,12 +51,12 @@ const HeaderComponent = () => {
                 arrValue={arrValue}
                 handleChange={handleChange}
             />
-            <SelectSmall
+            <SelectOptions
                 labelId="nearAmount"
                 name="nearAmount"
                 value={table.nearAmount}
                 label="Closest values"
-                arrValue={arrValue.slice(0, 10)}
+                arrValue={arrValue}
                 handleChange={handleChange}
             />
         </div>

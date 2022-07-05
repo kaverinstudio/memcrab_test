@@ -2,7 +2,7 @@ $width: 50px;
 $height: 50px;
 body {
   font-family: "Roboto", serif;
-
+  font-size: 16px;
 }
 
 * {
@@ -27,6 +27,12 @@ body {
     "table right-side"
     "bottom-side .";
 }
+.container{
+  width: 500px;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+}
 
 .table {
   grid-area: table;
@@ -35,6 +41,16 @@ body {
 .table__wrapper {
   display: flex;
   flex-wrap: wrap;
+}
+.table__background{
+  border: 1px solid lightgray;
+  box-sizing: border-box;
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 4px;
+  box-shadow: 0 2px 1px -1px rgba(103, 103, 103, 0.19), 0px 1px 1px 0px rgba(133, 132, 132, 0.22), 0px 1px 3px 0px rgba(188, 188, 190, 0.47);
+  max-width: 1200px;
+  overflow-x: hidden;
+  position: relative;
 }
 
 .cell {
@@ -64,3 +80,86 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+select {
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  flex: 1;
+  padding: 0 1em;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  cursor: pointer;
+  font: inherit;
+  transition: .25s all ease;
+  &:hover{
+    border: 1px solid black;
+  }
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+.select {
+  position: relative;
+  display: flex;
+  width: 33%;
+  height: 3em;
+  border-radius: .25em;
+
+  label{
+    position: absolute;
+    left: 0;
+    top: -20px;
+    font: inherit;
+  }
+  option{
+    padding: 15px 0;
+  }
+}
+
+.select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1em;
+  transition: .25s all ease;
+  pointer-events: none;
+  color: gray;
+}
+
+.select:hover::after {
+  color: black;
+}
+
+.pagination{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 420px;
+  margin: 0 auto;
+  select{
+    margin-left: 8px;
+  }
+}
+
+.pagination__icon{
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: .25s all ease;
+  &:hover{
+    opacity: 1;
+  }
+}
+.disabled{
+  cursor: initial;
+  opacity: 0.2;
+  &:hover{
+    opacity: 0.2;
+  }
+}
+

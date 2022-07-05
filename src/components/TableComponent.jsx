@@ -1,19 +1,12 @@
 import * as React from 'react';
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
 import {useDispatch, useSelector} from "react-redux";
 import CellComponent from "./CellComponent";
 import BottomSideCell from "./BottomSideCell";
 import TableClass from "../models/tableClass";
 import {useEffect} from "react";
 import Dispatcher from "../models/dispatcher";
-import {Typography} from "@mui/material";
+import PaginationComponent from "./PaginationComponent";
+import SelectPerPage from "./SelectPerPage";
 
 export default function TableComponent() {
     const table = useSelector(state => state.table)
@@ -21,17 +14,24 @@ export default function TableComponent() {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
 
+    const callPages = Math.ceil(table.cells.length / rowsPerPage)
 
-    const callPages = Math.ceil(table.rows / rowsPerPage)
-
-    if (callPages < page) {
+    if (callPages <= page && page !== 0) {
         setPage(callPages - 1)
     }
 
+    const increment = () => {
+        if (page + 1 < callPages) {
+            setPage(page + 1)
+        }
+    }
+
+    const decrement = () => {
+        if (page > 0) {
+            setPage(page - 1)
+        }
+    }
 
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(+event.target.value);
@@ -65,73 +65,74 @@ export default function TableComponent() {
     return (
         <div className="table">
             <div className="table__wrapper">
-                <Paper sx={{maxWidth: 1200, overflow: 'hidden'}}>
-                    <TableContainer sx={{height: 'auto'}}>
-                        <Table stickyHeader aria-label="sticky table">
-                            <TableBody>
-                                {table.cells
-                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                    .map((row, index) => {
-                                        return (
-                                            <TableRow key={index}>
-                                                {table.cells[indexForRender].map((col) => {
-                                                        return (
-                                                            <TableCell key={col.id} style={{padding: 0}}>
-                                                                <CellComponent
-                                                                    deselected={deselected}
-                                                                    amountPlus={amountPlus}
-                                                                    showPercent={table.showPercent}
-                                                                    key={col.id}
-                                                                    id={col.id}
-                                                                    percent={table.percents.filter(per => per.id === col.id)}
-                                                                    amount={col.amount}
-                                                                    showNearAmount={showNearAmount}
-                                                                />
-                                                            </TableCell>
-                                                        );
-                                                    },
-                                                    indexForRender++,
-                                                )}
-                                            </TableRow>
-                                        );
-                                    })}
-
-                            </TableBody>
-                        </Table>
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>
-                                        <Typography>Average value for each column</Typography>
-                                    </TableCell>
-                                </TableRow>
-                            </TableHead>
-                        </Table>
-                        <Table>
-                            <TableBody>
-                                <TableRow style={{marginTop: 20}}>
-                                    {table.averageColumn.map((value, index) =>
-                                        <TableCell key={index} style={{padding: 0}}>
-                                            <BottomSideCell
-                                                key={index}
-                                                value={value}
-                                            />
-                                        </TableCell>
-                                    )}
-                                </TableRow>
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                    <TablePagination
-                        rowsPerPageOptions={[5, 10, 15]}
-                        component="div"
-                        count={table.cells.length}
-                        rowsPerPage={rowsPerPage}
-                        page={page}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                    />
-                </Paper>
+                <div className="table__background">
+                    <div style={{height: 'auto', overflowX: 'scroll'}}>
+                        <table>
+                            {table.cells
+                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                .map((row, index) => {
+                                    return (
+                                        <tr key={index}>
+                                            {table.cells[indexForRender].map((col) => {
+                                                    return (
+                                                        <td key={col.id} style={{padding: 0}}>
+                                                            <CellComponent
+                                                                deselected={deselected}
+                                                                amountPlus={amountPlus}
+                                                                showPercent={table.showPercent}
+                                                                key={col.id}
+                                                                id={col.id}
+                                                                percent={table.percents.filter(per => per.id === col.id)}
+                                                                amount={col.amount}
+                                                                showNearAmount={showNearAmount}
+                                                            />
+                                                        </td>
+                                                    );
+                                                },
+                                                indexForRender++,
+                                            )}
+                                        </tr>
+                                    );
+                                })}
+                        </table>
+                        <table>
+                            <tr>
+                                <td>
+                                    <p style={{padding: '10px'}}>Average value for each column</p>
+                                </td>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr style={{marginTop: 20}}>
+                                {table.averageColumn.map((value, index) =>
+                                    <td key={index} style={{padding: 0}}>
+                                        <BottomSideCell
+                                            key={index}
+                                            value={value}
+                                        />
+                                    </td>
+                                )}
+                            </tr>
+                        </table>
+                    </div>
+                    <div className="pagination">
+                        <div>
+                            <SelectPerPage
+                                rowsPerPage={handleChangeRowsPerPage}
+                                value={rowsPerPage}
+                            />
+                        </div>
+                        <div>
+                            <p>Rows {page * rowsPerPage} - {(page + 1 === callPages) ? table.cells.length : (page * rowsPerPage + rowsPerPage)} of {table.cells.length}</p>
+                        </div>
+                        <PaginationComponent
+                            page={page}
+                            callPages={callPages}
+                            increment={increment}
+                            decrement={decrement}
+                        />
+                    </div>
+                </div>
             </div>
         </div>
     );
