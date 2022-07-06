@@ -2,8 +2,7 @@ import {
     setArrNearAmount,
     setAverageColumn,
     setCells,
-    setPercents, setRows,
-    setRowSum,
+    setPercents, setRowSum,
     setShowPercent
 } from "../reducers/tableReducer";
 

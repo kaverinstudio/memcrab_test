@@ -29,27 +29,23 @@ const RightSideComponent = () => {
 
     return (
         <div className="right__side">
-            <div>
-                <table>
-                    {table.rowSum
-                        .slice(table.showRightCell.page * table.showRightCell.rowsPerPage, table.showRightCell.page * table.showRightCell.rowsPerPage + table.showRightCell.rowsPerPage)
-                        .map((value, index) =>
-                            <tr key={index}>
-                                <td key={index} style={{padding: 0}}>
-                                    <RightSideCell
-                                        selected={selected}
-                                        deSelected={deSelected}
-                                        key={index}
-                                        index={value.id}
-                                        value={value.sumItem}
-                                        rowDelete={rowDelete}
-                                    />
-                                </td>
-                            </tr>
-                        )}
-                </table>
-            </div>
-            <p style={{textAlign: 'center', paddingTop: 10}}>Sum <br/> each <br/> row</p>
+            <table className="right__side--table">
+                {table.rowSum
+                    .map((value, index) =>
+                        <tr key={index}>
+                            <td key={index} style={{padding: 0}}>
+                                <RightSideCell
+                                    selected={selected}
+                                    deSelected={deSelected}
+                                    key={index}
+                                    index={value.id}
+                                    value={value.sumItem}
+                                    rowDelete={rowDelete}
+                                />
+                            </td>
+                        </tr>
+                    )}
+            </table>
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import {setColumns, setNearAmount, setRows, setShowRightCell} from "../reducers/tableReducer";
+import {setColumns, setNearAmount, setRows} from "../reducers/tableReducer";
 
 const Dispatcher = {
     columns(columns) {
@@ -15,13 +15,7 @@ const Dispatcher = {
         return (dispatch) => {
             dispatch(setNearAmount(parseInt(nearAmount)))
         }
-    },
-    showRightCell(cel) {
-        return (dispatch) => {
-            dispatch(setShowRightCell(cel))
-        }
     }
-
 }
 
 export default Dispatcher;

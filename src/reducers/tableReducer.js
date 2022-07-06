@@ -7,19 +7,17 @@ const SET_PERCENTS = 'SET_PERCENTS'
 const SET_COLUMNS = 'SET_COLUMNS'
 const SET_ROWS = 'SET_ROWS'
 const SET_NEAR_AMOUNT = 'SET_NEAR_AMOUNT'
-const SET_RIGHT_CELL = 'SET_RIGHT_CELL'
 
 const defaultState = {
-    rows: 10,
-    columns: 10,
+    rows: 30,
+    columns: 30,
     cells: [],
     rowSum: [],
     averageColumn: [],
     percents: [],
     showPercent: [],
-    nearAmount: 10,
+    nearAmount: 30,
     arrNearAmount: [],
-    showRightCell: [],
 }
 
 export default function tableReducers(state = defaultState, action) {
@@ -70,11 +68,6 @@ export default function tableReducers(state = defaultState, action) {
                 ...state,
                 nearAmount: action.payload,
             }
-        case SET_RIGHT_CELL:
-            return {
-                ...state,
-                showRightCell: action.payload,
-            }
         default:
             return state
     }
@@ -90,5 +83,4 @@ export const setPercents = (percents) => ({type: SET_PERCENTS, payload: percents
 export const setColumns = (columns) => ({type: SET_COLUMNS, payload: columns})
 export const setRows = (rows) => ({type: SET_ROWS, payload: rows})
 export const setNearAmount = (nearAmount) => ({type: SET_NEAR_AMOUNT, payload: nearAmount})
-export const setShowRightCell = (cel) => ({type: SET_RIGHT_CELL, payload: cel})
 
