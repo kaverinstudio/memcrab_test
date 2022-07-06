@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/memcrab-test-page/static/css/main.0bc0d084.css",
+    "main.js": "/memcrab-test-page/static/js/main.a860c673.js",
+    "static/js/787.afd6c76a.chunk.js": "/memcrab-test-page/static/js/787.afd6c76a.chunk.js",
+    "index.html": "/memcrab-test-page/index.html",
+    "main.0bc0d084.css.map": "/memcrab-test-page/static/css/main.0bc0d084.css.map",
+    "main.a860c673.js.map": "/memcrab-test-page/static/js/main.a860c673.js.map",
+    "787.afd6c76a.chunk.js.map": "/memcrab-test-page/static/js/787.afd6c76a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0bc0d084.css",
+    "static/js/main.a860c673.js"
+  ]
+}
